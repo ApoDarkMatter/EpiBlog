@@ -36,11 +36,9 @@ const NewBlogPost = () => {
   };
 
   // create a function to upload the file
-  const uploadFile = async (cover) => {
-    // create a new FormData object
-    const fileData = new FormData();
-    // add the file to FormData object
-    fileData.append("cover", cover);
+  const uploadFile = async (file) => {  
+    const fileData = new FormData()
+    fileData.append('cover', file)
     
     // send the file to the server
     try {
@@ -49,7 +47,7 @@ const NewBlogPost = () => {
         fileData
       );
       console.log("File caricato con successo:", response.data);
-      return response.data;
+      return await response.data;
     } catch (error) {
       console.log("Si è verificato un errore:", error);
     }

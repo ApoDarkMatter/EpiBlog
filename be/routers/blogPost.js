@@ -3,9 +3,9 @@ const blogPostModel = require('../models/blogPost')
 const blogPost = express.Router()
 const multer = require('multer')
 const cloudinary = require('cloudinary').v2
-const { CloudinaryStorage} = require('multer-storage-cloudinary')
+const { CloudinaryStorage } = require('multer-storage-cloudinary')
 require('dotenv').config()
-const crypto = require('crypto')
+//const crypto = require('crypto')
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -16,9 +16,9 @@ cloudinary.config({
 const cloudStorage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
-        folder: 'uploads',
-        format: async (req, res) => 'png',
-        public_id: (req, file) => file.name,
+        folder: 'newFolder',
+        format: async (req, file) => 'png',
+        public_id: (req, file) => file.name
     }
 })
 
@@ -26,7 +26,7 @@ const cloudUpload = multer({storage: cloudStorage})
 
 blogPost.post('/blogPost/cloudUpload', cloudUpload.single('cover'), async (req, res) => {
     try {
-        res.status(200).json({cover: req.file.path,})
+        res.status(200).json({cover: req.file.path})
     } catch(e) {
         res.status(500).send({
             statusCode: 500,
