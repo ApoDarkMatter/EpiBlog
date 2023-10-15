@@ -24,4 +24,4 @@ db.once('open', () => {
     console.log('Database successfully connected')
 })
 
-app.listen(process.env.PORT, () => console.log(`Serve running on port ${process.env.PORT}`))
+app.listen(process.env.PORT, () => console.log(`Server running on port ${process.env.PORT}`))

@@ -41,6 +41,7 @@ const NewBlogPost = () => {
     const fileData = new FormData();
     // add the file to FormData object
     fileData.append("cover", cover);
+    
     // send the file to the server
     try {
       const response = await axios.post(

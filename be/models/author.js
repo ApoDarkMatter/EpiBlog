@@ -9,18 +9,18 @@ const AuthorSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    mail: {
+    email: {
         type: String,
         required: true,
     },
     bornDate: {
-        type: Date,
-        required: true,
+        type: String,
+        required: false,  
     },
     avatar: {
         type: String,
         required: false,
-        default: 'https://cdn2.vectorstock.com/i/1000x1000/38/31/male-face-avatar-logo-template-pictograph-vector-11333831.jpg'
+        default: 'https://cdn2.vectorstock.com/i/1000x1000/38/31/male-face-avatar-logo-template-pictograph-vector-11333831.jpg',
     }
 },{ timestamps: true, strict: true })
 

@@ -16,9 +16,9 @@ cloudinary.config({
 const cloudStorage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
-        folder: 'cover',
+        folder: 'uploads',
         format: async (req, res) => 'png',
-        public_id: (req, res) => file.name
+        public_id: (req, file) => file.name,
     }
 })
 
@@ -26,7 +26,7 @@ const cloudUpload = multer({storage: cloudStorage})
 
 blogPost.post('/blogPost/cloudUpload', cloudUpload.single('cover'), async (req, res) => {
     try {
-        res.status(200).json({cover: req.file.path})
+        res.status(200).json({cover: req.file.path,})
     } catch(e) {
         res.status(500).send({
             statusCode: 500,
@@ -54,7 +54,7 @@ blogPost.get('/blogPost', async (req, res) => {
 blogPost.get('/blogPost/:postId', async (req, res) => {
     const {postId} = req.params
     try {
-        const post = await AuthorModel.findById(postId)
+        const post = await blogPostModel.findById(postId)
         if(!post){
             return res.status(404).send({
                 statusCode:404,
@@ -75,7 +75,7 @@ blogPost.get('/blogPost/:postId', async (req, res) => {
 
 
 blogPost.post('/blogPost', async (req, res) => {
-    const newBlogPost = new blogPostModelModel({
+    const newBlogPost = new blogPostModel({
         category: req.body.category,
         title: req.body.title,
         cover: req.body.cover,
@@ -83,7 +83,10 @@ blogPost.post('/blogPost', async (req, res) => {
             value: req.body.readTime.value,
             unit: req.body.readTime.unit
         },
-        author: req.body.author,
+        author: {
+            name: req.body.author.name,
+            avatar: req.body.author.avatar
+        },
         content: req.body.content
     })
 
@@ -103,7 +106,7 @@ blogPost.post('/blogPost', async (req, res) => {
     }
 })
 
-blogPost.patch('bloPost/:postId', async (req, res) => {
+blogPost.patch('/bloPost/:postId', async (req, res) => {
     const {postId} = req.params
 
     const postExist = await blogPostModel.findById(postId)
@@ -134,7 +137,7 @@ blogPost.patch('bloPost/:postId', async (req, res) => {
 })
 
 blogPost.delete('/blogPost/:postId', async (req, res) => {
-    const postId = req.params
+    const {postId} = req.params
 
     try {
         const post = await blogPostModel.findByIdAndDelete(postId)

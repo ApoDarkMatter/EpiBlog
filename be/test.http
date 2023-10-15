@@ -1,0 +1,46 @@
+GET http://localhost:5050/blogPost
+
+####
+POST http://localhost:5050/authors
+Content-Type: application/json
+
+{
+    "firstName": "Pippo",
+    "lastName": "Pippa",
+    "email": "mail@mail.it",
+    "bornDate": "02/02/1900",
+    "avatar": "asd"
+}
+
+####
+
+POST http://localhost:5050/blogPost/
+Content-Type: application/json
+
+{
+    "category": "Pippo",
+    "title": "Pippa",
+    "cover": "sds",
+    "content": "sada",
+    "author": {
+        "name": "pippolino"
+    },
+    "readTime": {
+        "value": 2
+    }
+}
+
+####
+
+POST http://localhost:5050/blogPost/
+Content-Type: application/json
+
+{
+    "category": "Pippo",
+    "title": "Pippa",
+    "cover": "sds",
+    "content": "sada",
+    "author": {
+        "name": "pippolino"
+    }
+}

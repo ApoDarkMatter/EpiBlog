@@ -45,8 +45,8 @@ author.post('/authors', async (req, res) => {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
-        bornDate: Date(req.body.bornDate),
-        avatar: req-body.avatar
+        bornDate: req.body.bornDate,
+        avatar: req.body.avatar,
     })
 
     try {
@@ -65,7 +65,7 @@ author.post('/authors', async (req, res) => {
     }
 })
 
-author.patch('author/:authorId', async (req, res) => {
+author.patch('authors/:authorId', async (req, res) => {
     const {authorId} = req.params
 
     const authorExist = await AuthorModel.findById(authorId)
@@ -95,7 +95,7 @@ author.patch('author/:authorId', async (req, res) => {
     }
 })
 
-author.delete('/author/:authorId', async (req, res) => {
+author.delete('/authors/:authorId', async (req, res) => {
     const authorId = req.params
 
     try {
