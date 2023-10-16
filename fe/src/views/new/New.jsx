@@ -39,7 +39,6 @@ const NewBlogPost = () => {
   const uploadFile = async (cover) => {  
     const fileData = new FormData()
     fileData.append("cover", cover)
-    console.log(Object.fromEntries(fileData));
     
     // send the file to the server
     try {
