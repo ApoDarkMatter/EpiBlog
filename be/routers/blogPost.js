@@ -16,21 +16,21 @@ cloudinary.config({
 const cloudStorage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
-        folder: 'newFolder',
+        folder: 'uploads',
         format: async (req, file) => 'png',
-        public_id: (req, file) => file.name
-    }
+        public_id: (req, file) => file.name,
+    },
 })
 
 const cloudUpload = multer({storage: cloudStorage})
 
 blogPost.post('/blogPost/cloudUpload', cloudUpload.single('cover'), async (req, res) => {
     try {
-        res.status(200).json({cover: req.file.path})
+        res.status(200).json({cover: req.file.path,})
     } catch(e) {
         res.status(500).send({
             statusCode: 500,
-            message: 'Internal Server Error'
+            message: 'Internal Server Error',
         })
     }
 })

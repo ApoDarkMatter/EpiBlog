@@ -12,15 +12,14 @@ const BlogPostSchema = new mongoose.Schema({
     },
     cover: {
         type: String,
-        required: true,
-        //default: 'https://cdn-icons-png.flaticon.com/512/4922/4922073.png'
     },
     readTime: {
         value: {
             type: Number
         },
         unit: {
-            type: String
+            type: String,
+            default: "minutes",
         }
     },
     author: {
@@ -33,14 +32,12 @@ const BlogPostSchema = new mongoose.Schema({
             default: 'https://cdn2.vectorstock.com/i/1000x1000/38/31/male-face-avatar-logo-template-pictograph-vector-11333831.jpg',
             required: false
         }
-        //type: mongoose.Schema.Types.ObjectId,
-        //ref: 'AuthorModel'
     },
     content: {
         type: String,
-        required: true,
+        required: false,
     }
 
 },{ timestamps: true, strict: true })
 
-module.exports = mongoose.model('BlogPostModel', BlogPostSchema, 'blogPost')
+module.exports = mongoose.model('blogPostModel', BlogPostSchema, 'blogPost')
