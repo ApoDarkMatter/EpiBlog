@@ -37,11 +37,11 @@ blogPost.post('/blogPost/cloudUpload', cloudUpload.single('cover'), async (req, 
 
 blogPost.get('/blogPost', async (req, res) => {
     try {
-        const blogPost = await blogPostModel.find()
+        const post = await blogPostModel.find()
 
         res.status(200).send({
             statusCode: 200,
-            blogPost
+            post
         })
     } catch(e) {
         res.status(500).send({
@@ -91,12 +91,12 @@ blogPost.post('/blogPost', async (req, res) => {
     })
 
     try {
-        const blogPost = await newBlogPost.save()
+        const post = await newBlogPost.save()
 
         res.status(201).send({
             statusCode: 201,
             message: 'BlogPost Saved Correctly',
-            blogPost
+            post
         })
     } catch (e) {
         res.status(500).send({

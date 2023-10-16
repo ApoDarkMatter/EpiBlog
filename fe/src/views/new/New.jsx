@@ -38,8 +38,7 @@ const NewBlogPost = () => {
   // create a function to upload the file
   const uploadFile = async (cover) => {  
     const fileData = new FormData()
-    fileData.append("cover",cover)
-    //fileData.append('cover', cover)
+    fileData.append("cover", cover)
     
     // send the file to the server
     try {
@@ -65,7 +64,7 @@ const NewBlogPost = () => {
         // add the cover to the formData
         const finalBody = {
           ...formData,
-          cover: uploadedFile.cover,
+          cover: uploadedFile.cover
         };
         console.log("finalBody:", finalBody);
         const response = await axios.post(
