@@ -39,7 +39,7 @@ const NewBlogPost = () => {
   const uploadFile = async (cover) => {  
     const fileData = new FormData()
     fileData.append("cover", cover)
-    
+
     // send the file to the server
     try {
       const response = await axios.post(
@@ -49,7 +49,7 @@ const NewBlogPost = () => {
       console.log("File caricato con successo:", response.data);
       return response.data;
     } catch (error) {
-      console.log("Si è verificato un errore:", error);
+      console.log("Si è verificato un errore:", error.toJSON());
     }
   };
 
@@ -61,6 +61,7 @@ const NewBlogPost = () => {
       try {
         // upload the file
         const uploadedFile = await uploadFile(file);
+        console.log(uploadedFile);
         // add the cover to the formData
         const finalBody = {
           ...formData,
@@ -90,7 +91,7 @@ const NewBlogPost = () => {
         className="mt-5"
         onSubmit={handleSubmit}
         encType="multipart/form-data"
-      >
+        >
         <Form.Group controlId="blog-form" className="mt-3">
           <Form.Label>Author</Form.Label>
           <Form.Control
