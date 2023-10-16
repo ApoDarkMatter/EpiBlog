@@ -39,7 +39,7 @@ const NewBlogPost = () => {
   const uploadFile = async (cover) => {  
     const fileData = new FormData()
     fileData.append("cover", cover)
-
+    
     // send the file to the server
     try {
       const response = await axios.post(
@@ -49,7 +49,7 @@ const NewBlogPost = () => {
       console.log("File caricato con successo:", response.data);
       return response.data;
     } catch (error) {
-      console.log("Si è verificato un errore:", error.toJSON());
+      console.log("Si è verificato un errore:", error);
     }
   };
 
