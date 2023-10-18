@@ -5,9 +5,12 @@ import Footer from "./components/footer/Footer";
 import Home from "./views/home/Home";
 import Blog from "./views/blog/Blog";
 import NewBlogPost from "./views/newBlogPost/NewBlogPost";
+import NewAuthor from "./views/newAuthor/newAuthor";
 import Login from "./views/login/login"
 import ProtectedRoutes from "./middlewares/ProtectedRoutes";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+
 
 function App() {
   return (
@@ -15,6 +18,7 @@ function App() {
       <NavBar />
       <Routes>
         <Route path="/" exact element={<Login />} />
+        <Route path="/newauthor" element={<NewAuthor />} />
         <Route element={<ProtectedRoutes />}>
           <Route path="/" exact element={<Home />} />
           <Route path="/blog/:id" element={<Blog />} />

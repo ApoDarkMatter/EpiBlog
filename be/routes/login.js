@@ -2,13 +2,13 @@ const express = require('express')
 const login = express.Router()
 const bcrypt = require('bcrypt')
 const authorModel = require("../models/author")
-const jwt = require('jwtwebtoken')
+const jwt = require('jsonwebtoken')
 require('dotenv').config()
 
-login.post("/login"), async (req, res) => {
+login.post('/login', async (req, res) => {
     const user = await authorModel.findOne({ email: req.body.mail })
 
-    if(!user) {ù
+    if(!user) {
         return res.status(404).send({
             message: "User not found",
             statusCode: 404
@@ -39,7 +39,7 @@ login.post("/login"), async (req, res) => {
         statusCode: 200,
         token
     })
-}
+})
 
 
 module.exports = login;

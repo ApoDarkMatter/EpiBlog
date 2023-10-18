@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {useNavigate} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import {Button, Form} from 'react-bootstrap'
 import axios from 'axios'
 import "./styles.css"
@@ -40,7 +40,7 @@ const Login = () => {
         <>
             <Form onSubmit={onSubmit} className="inputForm">
                 <h1>Login</h1>
-                <h4>To see this blog you must be logged</h4>
+                <h4>To see this page you must be logged</h4>
                 <Form.Group className="mb-3">
                     <Form.Label>Email address</Form.Label>
                     <Form.Control 
@@ -64,6 +64,10 @@ const Login = () => {
                 <Button
                     type="submit"
                 >Login</Button>
+                <Button 
+                    as={Link}
+                    to="/newauthor"
+                >Subscribe</Button>
             </Form>
         </>
     )

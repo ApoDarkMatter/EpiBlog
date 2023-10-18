@@ -2,14 +2,16 @@ const express = require("express")
 const mongoose = require("mongoose")
 const cors = require("cors")
 require('dotenv').config()
-const authorRoute = require('./routers/authors')
-const blogPostRoute = require('./routers/blogPosts')
+const authorRoute = require('./routes/authors')
+const blogPostRoute = require('./routes/blogPosts')
+const loginRoute = require('./routes/login')
 
 const app = express()
 
 app.use(cors())
 app.use(express.json())
 
+app.use('/', loginRoute)
 app.use('/', authorRoute)
 app.use('/', blogPostRoute)
 
