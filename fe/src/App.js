@@ -16,7 +16,7 @@ function App() {
     <Router>
       <NavBar />
       <Routes>
-        <Route path="/" exact element={<Login />} />
+        <Route exact path="/" element={<Login />} />
         <Route path="/newauthor" element={<NewAuthor />} />
         <Route element={<ProtectedRoutes />}>
           <Route path="/home" element={<Home />} />

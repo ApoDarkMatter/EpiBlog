@@ -4,6 +4,8 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
 import "./styles.css"
+import useSession from "../../hooks/useSession";
+import { useEffect } from "react";
 
 const NewBlogPost = () => {
   const [text, setText] = useState("");
@@ -13,10 +15,19 @@ const NewBlogPost = () => {
   const [readTime, setReadTime] = useState({ value: 0, unit: "minutes" });
   const [category, setCategory] = useState("");
 
+  const session = useSession()
+  console.log(session)
+
+  useEffect(() => {
+    setAuthor(session.email)
+    setAvatar(session.avatar)
+  }, [])
+  
+
   const formData = {
     author: {
-      name: author,
-      avatar: avatar,
+      name: session.email,
+      avatar: session.avatar,
     },
     title: title,
     readTime: {
