@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken')
 require('dotenv').config()
 
 login.post('/login', async (req, res) => {
-    const user = await authorModel.findOne({ email: req.body.mail })
+    const user = await authorModel.findOne({ email: req.body.email })
 
     if(!user) {
         return res.status(404).send({

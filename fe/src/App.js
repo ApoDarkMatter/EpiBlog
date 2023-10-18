@@ -11,7 +11,6 @@ import ProtectedRoutes from "./middlewares/ProtectedRoutes";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 
-
 function App() {
   return (
     <Router>
@@ -20,7 +19,7 @@ function App() {
         <Route path="/" exact element={<Login />} />
         <Route path="/newauthor" element={<NewAuthor />} />
         <Route element={<ProtectedRoutes />}>
-          <Route path="/" exact element={<Home />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/blog/:id" element={<Blog />} />
           <Route path="/new" element={<NewBlogPost />} />
         </Route>
