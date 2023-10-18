@@ -3,6 +3,7 @@ import { Button, Container, Form } from "react-bootstrap";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
+import "./styles.css"
 
 const NewBlogPost = () => {
   const [text, setText] = useState("");

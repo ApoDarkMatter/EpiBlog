@@ -1,6 +1,7 @@
 const express = require('express')
 const AuthorModel = require('../models/author')
 const author = express.Router()
+const bcrypt = require('bcrypt')
 
 author.get('/authors', async (req, res) => {
     try {
@@ -41,10 +42,15 @@ author.get('/authors/:authorId', async (req, res) => {
 })
 
 author.post('/authors', async (req, res) => {
+
+    const salt = await bcrypt.genSalt(10)
+    const hashedPassword = await bcrypt.hash(req.body.password, salt)
+
     const newAuthor = new AuthorModel({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
+        password: hashedPassword,
         bornDate: req.body.bornDate,
         avatar: req.body.avatar,
     })
