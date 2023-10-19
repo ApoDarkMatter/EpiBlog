@@ -5,6 +5,7 @@ require('dotenv').config()
 const authorRoute = require('./routes/authors')
 const blogPostRoute = require('./routes/blogPosts')
 const loginRoute = require('./routes/login')
+const commentRoute = require('./routes/comments')
 
 const app = express()
 
@@ -14,6 +15,7 @@ app.use(express.json())
 app.use('/', loginRoute)
 app.use('/', authorRoute)
 app.use('/', blogPostRoute)
+app.use('/', commentRoute)
 
 mongoose.connect(process.env.MONGODB_SERVER_URL, {
     useNewUrlParser: true,

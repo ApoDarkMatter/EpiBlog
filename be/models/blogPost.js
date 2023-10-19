@@ -23,15 +23,8 @@ const BlogPostSchema = new mongoose.Schema({
         }
     },
     author: {
-        name: {
-            type: String,
-            required: true,
-        },
-        avatar: {
-            type: String,
-            default: 'https://cdn2.vectorstock.com/i/1000x1000/38/31/male-face-avatar-logo-template-pictograph-vector-11333831.jpg',
-            required: false
-        }
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'AuthorModel'
     },
     content: {
         type: String,
