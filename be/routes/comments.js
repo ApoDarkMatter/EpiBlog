@@ -29,4 +29,28 @@ comment.get('/blogPost/:id/comments', async (req, res) => {
     
 })
 
+comment.post('/blogPost/:id', async (req, res) => {
+    const newComment = new postCommentsModel({
+        comment: req.body.comment,
+        rate: req.body.rate,
+        authorId: req.body.authorId,
+        postId: req.body.postId
+    })
+
+    try {
+        const comment = await newComment.save()
+
+        res.status(201).send({
+            statusCode: 201,
+            message: 'Comment Saved Correctly',
+            comment
+        })
+    } catch (e) {
+        res.status(500).send({
+            statusCode: 500,
+            message: 'Internal Server Error'
+        })
+    }
+})
+
 module.exports = comment

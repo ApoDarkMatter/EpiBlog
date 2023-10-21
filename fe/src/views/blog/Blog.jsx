@@ -5,6 +5,7 @@ import BlogAuthor from "../../components/blog/blog-author/BlogAuthor";
 import BlogLike from "../../components/likes/BlogLike";
 import "./styles.css";
 import axios from "axios";
+import AddComment from "../../components/comments/addComment/addComment";
 
 const Blog = () => {
   const {id} = useParams()
@@ -67,6 +68,7 @@ const Blog = () => {
             }}
           ></div>
         </Container>
+        <AddComment/>
       </div>
     );
   }

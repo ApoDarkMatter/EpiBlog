@@ -15,10 +15,6 @@ const PostCommentsSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    content: {
-        type: String,
-        required: false,
-    },
     authorId: {
         type: String,
         required: true,
