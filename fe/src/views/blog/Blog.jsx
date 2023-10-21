@@ -5,11 +5,11 @@ import BlogAuthor from "../../components/blog/blog-author/BlogAuthor";
 import BlogLike from "../../components/likes/BlogLike";
 import "./styles.css";
 import axios from "axios";
-import AddComment from "../../components/comments/addComment/addComment";
+import AddComment from "../../components/comments/addComment/AddComment";
+import CommentsList from "../../components/comments/commentsList/CommentsList";
 
 const Blog = () => {
   const {id} = useParams()
-  console.log(`Questo è l'id del post ${id}`);
 
   const [blog, setBlog] = useState({});
   const [loading, setLoading] = useState(true);
@@ -19,7 +19,6 @@ const Blog = () => {
     try {
       const response = await axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/blogPost/${id}`)
       setBlog(response.data.post)
-      console.log(response.data.post);
     } catch (error) {
       console.log(error);
     }
@@ -57,7 +56,7 @@ const Blog = () => {
                   marginTop: 20,
                 }}
               >
-                <BlogLike defaultLikes={["123"]} onChange={console.log} />
+                <BlogLike defaultLikes={["123"]} />
               </div>
             </div>
           </div>
@@ -69,6 +68,7 @@ const Blog = () => {
           ></div>
         </Container>
         <AddComment/>
+        <CommentsList/>
       </div>
     );
   }

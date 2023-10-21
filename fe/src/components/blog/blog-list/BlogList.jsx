@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import BlogItem from "../blog-item/BlogItem"
 import axios from "axios";
 import { Container, Row } from "react-bootstrap";
-
+import { nanoid } from "nanoid";
 
 const BlogList = () => {
 
@@ -12,7 +12,6 @@ const BlogList = () => {
     try {
       const response = await axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/blogPost/`)
       setPosts(response.data.post)
-      console.log(response.data.post);
     } catch (error) {
       console.log(error);
     }
@@ -29,7 +28,7 @@ const BlogList = () => {
         <Row>
           {posts && posts?.map((post) => {
             return (
-              <BlogItem title={post.title} cover={post.cover} author={post.author} _id={post._id}/>
+              <BlogItem key={nanoid()} title={post.title} cover={post.cover} author={post.author} _id={post._id}/>
             )
           })}
         </Row>

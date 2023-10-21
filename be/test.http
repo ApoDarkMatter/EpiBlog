@@ -44,3 +44,7 @@ Content-Type: application/json
         "name": "pippolino"
     }
 }
+
+####
+
+GET http://localhost:5050/blogPost/653392fb39c8a39e62e29c6e/comments

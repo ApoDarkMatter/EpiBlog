@@ -7,7 +7,7 @@ import { Button, Form, InputGroup } from 'react-bootstrap';
 
 const AddComment = () => {
     const [comment, setComment] = useState("")
-    const [rate, setRate] = useState("")
+    const [rate, setRate] = useState(0)
 
     const {id} = useParams()
 
@@ -51,10 +51,11 @@ const AddComment = () => {
             <InputGroup className="mb-3">
                 <InputGroup.Text id="basic-addon1">Rate</InputGroup.Text>
                 <Form.Control
+                type="number"
                 placeholder="Rate"
                 aria-label="Rate"
                 aria-describedby="basic-addon1"
-                onChange={(e) => setRate(e.target.value)}
+                onChange={(e) => setRate(parseInt(e.target.value))}
                 />
             </InputGroup>
             <Form.Group className="d-flex mt-3 justify-content-end">

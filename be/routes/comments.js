@@ -5,9 +5,11 @@ require('dotenv').config()
 
 comment.get('/blogPost/:id/comments', async (req, res) => {
     const {id} = req.params
+
+    var query = { postId: id };
     
     try {
-        const comments = await postCommentsModel.findById(id)
+        const comments = await postCommentsModel.find(query)
 
         if(!comments) {
             return res.status(404).send({
