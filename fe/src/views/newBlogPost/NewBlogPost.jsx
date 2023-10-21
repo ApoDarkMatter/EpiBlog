@@ -25,10 +25,7 @@ const NewBlogPost = () => {
   
 
   const formData = {
-    author: {
-      name: session.email,
-      avatar: session.avatar,
-    },
+    author: session.id,
     title: title,
     readTime: {
       value: parseInt(readTime.value),

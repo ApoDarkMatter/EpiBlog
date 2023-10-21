@@ -83,10 +83,7 @@ blogPost.post('/blogPost', async (req, res) => {
             value: req.body.readTime.value,
             unit: req.body.readTime.unit
         },
-        author: {
-            name: req.body.author.name,
-            avatar: req.body.author.avatar
-        },
+        author: req.body.author,
         content: req.body.content
     })
 
