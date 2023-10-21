@@ -12,12 +12,16 @@ const PostCommentsSchema = new mongoose.Schema({
         required: true,
     },
     postId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'blogPostModel'
+        type: String,
+        required: true,
     },
     content: {
         type: String,
         required: false,
+    },
+    authorId: {
+        type: String,
+        required: true,
     }
 
 },{ timestamps: true, strict: true })
