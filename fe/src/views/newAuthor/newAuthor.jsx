@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
 import "./styles.css"
+import { useDispatch } from "react-redux";
+import { setSearchVisible } from "../../reducers/blogPost";
 
 const NewAuthor = () => {
   const [firstName, setFirstName] = useState("");
@@ -10,6 +12,8 @@ const NewAuthor = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [bornDate, setBornDate] = useState();
+
+  const dispatch = useDispatch()
 
   const formData = {
     firstName: firstName,
@@ -72,6 +76,10 @@ const NewAuthor = () => {
       console.error("File non caricato");
     }
   };
+
+  useEffect(() => {
+    dispatch(setSearchVisible(false))
+  }, [])
 
   return (
     <Container className="new-author-container">

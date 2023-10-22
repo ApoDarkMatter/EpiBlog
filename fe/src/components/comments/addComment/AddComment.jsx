@@ -3,9 +3,14 @@ import axios from "axios";
 import useSession from "../../../hooks/useSession";
 import { useParams } from 'react-router-dom';
 import { Button, Col, Form, InputGroup } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { setIsLoading } from '../../../reducers/blogPost';
 
 
 const AddComment = () => {
+    const isLoading = useSelector((state) => state.post.isLoading)
+    const dispatch = useDispatch()
+
     const [comment, setComment] = useState("")
     const [rate, setRate] = useState(0)
 
@@ -27,11 +32,11 @@ const AddComment = () => {
         try {
             const response = await axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/blogPost/${id}`,formData)
             console.log("Comment saved correctly:", response.data);
+            dispatch(setIsLoading(!isLoading))
           } catch (error) {
             console.log("Error:", error);
           }
     }
-
 
     return (
         <>

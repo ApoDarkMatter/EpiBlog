@@ -55,11 +55,11 @@ comment.post('/blogPost/:id', async (req, res) => {
     }
 })
 
-comment.delete('/blogPost/:commentId', async (req, res) => {
-    const commentId = req.params
+comment.delete('/blogPost/:id/comment/:commentId', async (req, res) => {
+    const {id, commentId} = req.params
 
     try {
-        const comment = await postCommentsModel.findByIdAndDelete(commentId)
+        const comment = await postCommentsModel.findOneAndDelete({_id: commentId, postId: id})
         if(!comment) {
             return res.status(404).send({
                 statusCode: 404,

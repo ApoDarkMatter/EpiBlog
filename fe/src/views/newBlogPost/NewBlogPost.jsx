@@ -6,6 +6,8 @@ import axios from "axios";
 import "./styles.css"
 import useSession from "../../hooks/useSession";
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setSearchVisible } from "../../reducers/blogPost";
 
 const NewBlogPost = () => {
   const [text, setText] = useState("");
@@ -15,12 +17,15 @@ const NewBlogPost = () => {
   const [readTime, setReadTime] = useState({ value: 0, unit: "minutes" });
   const [category, setCategory] = useState("");
 
+  const dispatch = useDispatch()
+
   const session = useSession()
   console.log(session)
 
   useEffect(() => {
     setAuthor(session.email)
     setAvatar(session.avatar)
+    dispatch(setSearchVisible(false))
   }, [])
   
 

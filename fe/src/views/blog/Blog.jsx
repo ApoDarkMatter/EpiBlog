@@ -6,6 +6,8 @@ import BlogLike from "../../components/likes/BlogLike";
 import "./styles.css";
 import axios from "axios";
 import AddComment from "../../components/comments/addComment/AddComment";
+import { useDispatch } from "react-redux";
+import { setSearchVisible } from "../../reducers/blogPost";
 import CommentsList from "../../components/comments/commentsList/CommentsList";
 
 const Blog = () => {
@@ -13,6 +15,8 @@ const Blog = () => {
 
   const [blog, setBlog] = useState({});
   const [loading, setLoading] = useState(true);
+
+  const dispatch = useDispatch()
 
 
   const getBlogPost = async () => {
@@ -34,6 +38,7 @@ const Blog = () => {
     } else {
       navigate("/404");
     }
+    dispatch(setSearchVisible(false))
   }, []);
 
   if (loading) {

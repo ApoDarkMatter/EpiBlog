@@ -36,11 +36,20 @@ blogPost.post('/blogPost/cloudUpload', cloudUpload.single('cover'), async (req, 
 })
 
 blogPost.get('/blogPost', async (req, res) => {
+    const { page = 1, pageSize = 3 } = req.query
     try {
-        const post = await blogPostModel.find().populate('author', 'firstName lastName avatar email')
+        const post = await blogPostModel.find()
+            .populate('author', 'firstName lastName avatar email')
+            .limit(pageSize)
+            .skip((page -1) * pageSize)
+
+        const totalPosts = await  blogPostModel.count()
 
         res.status(200).send({
             statusCode: 200,
+            currentPage: Number(page),
+            totalPages: Math.ceil(totalPosts / pageSize),
+            totalPosts,
             post
         })
     } catch(e) {

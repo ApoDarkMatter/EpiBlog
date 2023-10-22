@@ -5,14 +5,19 @@ import { useParams } from 'react-router-dom'
 import {nanoid} from 'nanoid'
 import useSession from '../../../hooks/useSession'
 import BlogAuthor from '../../blog/blog-author/BlogAuthor'
+import { setIsLoading } from '../../../reducers/blogPost'
+import { useDispatch, useSelector } from 'react-redux'
 
 const CommentsList = () => {
+
+   const isLoading = useSelector((state) => state.post.isLoading)
+   const dispatch = useDispatch()
+
+    const {id} = useParams()
 
     const session = useSession()
 
     const [comments, setComments] = useState([])
-
-    const {id} = useParams()
 
     const getCommentsPost = async () => {
       try {
@@ -26,10 +31,18 @@ const CommentsList = () => {
   
     useEffect(() => {
       getCommentsPost()
-    }, [])
+    }, [isLoading])
 
-    const deleteComment = async () => {
-      
+    const deleteComment = async (commentId) => {
+
+      console.log(commentId);
+      try {
+        await axios.delete(`${process.env.REACT_APP_SERVER_BASE_URL}/blogPost/${id}/comment/${commentId}`)
+        console.log("Comment deleted succesfully");
+        dispatch(setIsLoading(!isLoading))
+      } catch (error) {
+        console.log(error);
+      }
     }
     
   
@@ -50,15 +63,9 @@ const CommentsList = () => {
                         <Card.Body>
                             <Card.Title>Rate: {comment.rate}</Card.Title>
                             <Card.Text>
-                            <Row>
-                                <Col>
-                                {comment.comment}
-                                </Col>
-                                <Col>
-                                <Button variant="danger" onClick={deleteComment}>Delete Comment</Button>
-                                </Col>
-                            </Row>
+                                  {comment.comment}
                             </Card.Text>
+                            <Button variant="danger" onClick={() => deleteComment(comment._id)}>Delete Comment</Button>
                         </Card.Body>
                       </Card>
                     </Col>
@@ -75,11 +82,7 @@ const CommentsList = () => {
                           <Card.Body>
                               <Card.Title>Rate: {comment.rate}</Card.Title>
                               <Card.Text>
-                              <Row>
-                                  <Col>
                                   {comment.comment}
-                                  </Col>
-                              </Row>
                               </Card.Text>
                           </Card.Body>
                         </Card>

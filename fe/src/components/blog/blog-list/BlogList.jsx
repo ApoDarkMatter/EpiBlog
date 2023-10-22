@@ -3,9 +3,15 @@ import BlogItem from "../blog-item/BlogItem"
 import axios from "axios";
 import { Container, Row } from "react-bootstrap";
 import { nanoid } from "nanoid";
+import ResponsivePagination from 'react-responsive-pagination'
+import { useSelector } from "react-redux";
 
 const BlogList = () => {
 
+  const search = useSelector((state) => state.post.searchData)
+  console.log(search);
+
+  const [currentPage, setCurrentPage] = useState(1)
   const [posts, setPosts] = useState()
 
   const getBlogPosts = async () => {
@@ -17,9 +23,14 @@ const BlogList = () => {
     }
   }
 
+  const handlePagination = (value) => {
+    setCurrentPage(value)
+  }
+
   useEffect(() => {
     getBlogPosts()
-  }, [])
+
+  }, [currentPage])
   
 
   return (
@@ -33,6 +44,11 @@ const BlogList = () => {
           })}
         </Row>
       </Container>
+      <ResponsivePagination
+          current={currentPage}
+          total={posts && posts.totalPages}
+          onPageChange={handlePagination}
+      />
     </>
   );
 };
