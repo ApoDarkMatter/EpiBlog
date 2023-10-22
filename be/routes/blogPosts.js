@@ -37,7 +37,7 @@ blogPost.post('/blogPost/cloudUpload', cloudUpload.single('cover'), async (req, 
 
 blogPost.get('/blogPost', async (req, res) => {
     try {
-        const post = await blogPostModel.find()
+        const post = await blogPostModel.find().populate('author', 'firstName lastName avatar email')
 
         res.status(200).send({
             statusCode: 200,
@@ -54,7 +54,7 @@ blogPost.get('/blogPost', async (req, res) => {
 blogPost.get('/blogPost/:postId', async (req, res) => {
     const {postId} = req.params
     try {
-        const post = await blogPostModel.findById(postId)
+        const post = await blogPostModel.findById(postId).populate('author', 'firstName lastName avatar email')
         if(!post){
             return res.status(404).send({
                 statusCode:404,

@@ -2,6 +2,38 @@ const express = require('express')
 const AuthorModel = require('../models/author')
 const author = express.Router()
 const bcrypt = require('bcrypt')
+const multer = require('multer')
+const cloudinary = require('cloudinary').v2
+const { CloudinaryStorage } = require('multer-storage-cloudinary')
+
+
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+})
+
+const cloudStorage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: 'avatar',
+        format: async (req, file) => 'png',
+        public_id: (req, file) => file.name,
+    },
+})
+
+const cloudUpload = multer({storage: cloudStorage})
+
+author.post('/authors/cloudUpload', cloudUpload.single('avatar'), async (req, res) => {
+    try {
+        res.status(200).json({avatar: req.file.path})
+    } catch(e) {
+        res.status(500).send({
+            statusCode: 500,
+            message: 'Internal Server Error'
+        })
+    }
+})
 
 author.get('/authors', async (req, res) => {
     try {

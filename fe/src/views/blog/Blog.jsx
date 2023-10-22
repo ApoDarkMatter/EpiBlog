@@ -19,6 +19,7 @@ const Blog = () => {
     try {
       const response = await axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/blogPost/${id}`)
       setBlog(response.data.post)
+      console.log(response.data.post);
     } catch (error) {
       console.log(error);
     }
@@ -29,7 +30,6 @@ const Blog = () => {
   useEffect(() => {
     getBlogPost()
     if (blog) {
-      setBlog(blog);
       setLoading(false);
     } else {
       navigate("/404");
@@ -51,7 +51,7 @@ const Blog = () => {
             </div>
             <div className="blog-details-info">
               <div>{blog.createdAt}</div>
-              {/* <div>{`${blog.readTime.value} ${blog.readTime.unit} read`}</div> */}
+                {/*<div>{blog.readTime.value} {blog.readTime.unit}</div>*/}
               <div
                 style={{
                   marginTop: 20,

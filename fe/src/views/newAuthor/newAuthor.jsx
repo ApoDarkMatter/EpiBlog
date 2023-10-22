@@ -10,7 +10,6 @@ const NewAuthor = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [bornDate, setBornDate] = useState();
-  const [avatar, setAvatar] = useState("");
 
   const formData = {
     firstName: firstName,
@@ -18,22 +17,61 @@ const NewAuthor = () => {
     email: email,
     password: password,
     bornDate: bornDate,
-    avatar: avatar
+  };
+
+  const [file, setFile] = useState(null);
+
+  const onChangeSetFile = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  const uploadFile = async (avatar) => {  
+    const fileData = new FormData()
+    fileData.append("avatar", avatar)
+    
+    // send the file to the server
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_SERVER_BASE_URL}/authors/cloudUpload`,
+        fileData
+      );
+      console.log("File caricato con successo:", response.data);
+      return response.data;
+    } catch (error) {
+      console.log("Si è verificato un errore:", error);
+    }
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    try {
+    // check if the file is not null
+    if (file) {
+      try {
+        // upload the file
+        const uploadedFile = await uploadFile(file);
+        console.log(uploadedFile);
+        // add the cover to the formData
+        const finalBody = {
+          ...formData,
+          avatar: uploadedFile.avatar
+        };
+        console.log("finalBody:", finalBody);
         const response = await axios.post(
-            `${process.env.REACT_APP_SERVER_BASE_URL}/authors`,
-            formData
-            )
-            console.log("Author created successfully", response.data)
-    } catch (error) {
-        console.log("Error on creation new author", error);
+          `${process.env.REACT_APP_SERVER_BASE_URL}/authors`,
+          finalBody,
+          { headers: { "Content-Type": "application/json" } }
+        );
+        console.log("Author created successfully:", response.data);
+        setFile(null);
+        console.log("uploadedFile:", uploadedFile);
+      } catch (error) {
+        console.log("Si è verificato un errore:", error);
+      }
+    } else {
+      console.error("File non caricato");
     }
-  }
+  };
 
   return (
     <Container className="new-author-container">
@@ -41,8 +79,9 @@ const NewAuthor = () => {
       <Form
         className="mt-5"
         onSubmit={handleSubmit}
+        encType="multipart/form-data"
         >
-        <Form.Group controlId="blog-form" className="mt-3">
+        <Form.Group className="mt-3">
           <Form.Label>First Name</Form.Label>
           <Form.Control
             size="lg"
@@ -51,7 +90,7 @@ const NewAuthor = () => {
             onChange={(e) => setFirstName(e.target.value)}
           />
         </Form.Group>
-        <Form.Group controlId="blog-form" className="mt-3">
+        <Form.Group className="mt-3">
           <Form.Label>Last Name</Form.Label>
           <Form.Control
             size="lg"
@@ -60,7 +99,7 @@ const NewAuthor = () => {
             onChange={(e) => setLastName(e.target.value)}
           />
         </Form.Group>
-        <Form.Group controlId="blog-form" className="mt-3">
+        <Form.Group className="mt-3">
           <Form.Label>Email</Form.Label>
           <Form.Control
             size="lg"
@@ -69,7 +108,7 @@ const NewAuthor = () => {
             onChange={(e) => setEmail(e.target.value)}
           />
         </Form.Group>
-        <Form.Group controlId="blog-form" className="mt-3">
+        <Form.Group className="mt-3">
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
@@ -79,7 +118,7 @@ const NewAuthor = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
-        <Form.Group controlId="blog-form" className="mt-3">
+        <Form.Group className="mt-3">
           <Form.Label>Born Date</Form.Label>
           <Form.Control
             size="lg"
@@ -88,13 +127,14 @@ const NewAuthor = () => {
             onChange={(e) => setBornDate(e.target.value)}
           />
         </Form.Group>
-        <Form.Group controlId="blog-form" className="mt-3">
+        <Form.Group className="mt-3">
           <Form.Label>Avatar</Form.Label>
           <Form.Control
+            type="file"
+            name="avatar"
             size="lg"
             placeholder="Avatar"
-            value={avatar}
-            onChange={(e) => setAvatar(e.target.value)}
+            onChange={onChangeSetFile}
           />
         </Form.Group>
         <Form.Group className="d-flex mt-3 justify-content-end">

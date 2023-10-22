@@ -9,7 +9,7 @@ comment.get('/blogPost/:id/comments', async (req, res) => {
     var query = { postId: id };
     
     try {
-        const comments = await postCommentsModel.find(query)
+        const comments = await postCommentsModel.find(query).populate('authorId', 'firstName lastName avatar email')
 
         if(!comments) {
             return res.status(404).send({
@@ -54,5 +54,30 @@ comment.post('/blogPost/:id', async (req, res) => {
         })
     }
 })
+
+comment.delete('/blogPost/:commentId', async (req, res) => {
+    const commentId = req.params
+
+    try {
+        const comment = await postCommentsModel.findByIdAndDelete(commentId)
+        if(!comment) {
+            return res.status(404).send({
+                statusCode: 404,
+                message: "Comment not found or already deleted"
+            })
+        }
+
+        res.status(200).send({
+            statusCode: 200,
+            message: "Comment deleted successfully"
+        })
+    } catch (e) {
+        res.status(500).send({
+            statusCode: 500,
+            message: 'Internal Server Error'
+        })
+    }
+})
+
 
 module.exports = comment

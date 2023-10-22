@@ -16,8 +16,8 @@ const PostCommentsSchema = new mongoose.Schema({
         required: true,
     },
     authorId: {
-        type: String,
-        required: true,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'AuthorModel'
     }
 
 },{ timestamps: true, strict: true })
