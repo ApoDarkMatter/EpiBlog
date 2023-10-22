@@ -1,8 +1,9 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {Link, useNavigate} from 'react-router-dom'
 import {Button, Col, Form} from 'react-bootstrap'
 import axios from 'axios'
 import "./styles.css"
+import { isAuth } from '../../middlewares/ProtectedRoutes'
 
 const Login = () => {
     const [loginData, setLoginData] = useState({})
@@ -35,6 +36,13 @@ const Login = () => {
             console.log(error)
         }
     }
+
+    useEffect(() => {
+      if(isAuth) {
+        navigate('/home')
+      }
+    }, [])
+    
     
     return (
         <>
