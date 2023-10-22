@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { Container, Row } from 'react-bootstrap'
+import { Col, Container, Row } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
 import {nanoid} from 'nanoid'
 
@@ -26,13 +26,15 @@ const CommentsList = () => {
   
     return (
       <>
-        <Container>
+        <Container className="mt-5">
           <Row>
-            {comments && comments?.map((comment) => {
-              return (
-                <p key={nanoid()}>{comment.comment} - {comment.rate}</p>
-              )
-            })}
+            <Col lg="4" className="mx-auto">
+              {comments && comments?.map((comment) => {
+                return (
+                  <p key={nanoid()}>{comment.comment} - {comment.rate}</p>
+                )
+              })}
+            </Col>
           </Row>
         </Container>
       </>

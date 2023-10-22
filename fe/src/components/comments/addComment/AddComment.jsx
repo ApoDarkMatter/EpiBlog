@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import axios from "axios";
 import useSession from "../../../hooks/useSession";
 import { useParams } from 'react-router-dom';
-import { Button, Form, InputGroup } from 'react-bootstrap';
+import { Button, Col, Form, InputGroup } from 'react-bootstrap';
 
 
 const AddComment = () => {
@@ -39,37 +39,35 @@ const AddComment = () => {
                 className="mt-5"
                 onSubmit={handleSubmit}
                 >
-            <InputGroup className="mb-3">
-                <InputGroup.Text id="basic-addon1">Comment</InputGroup.Text>
-                <Form.Control
-                placeholder="Comment"
-                aria-label="Comment"
-                aria-describedby="basic-addon1"
-                onChange={(e) => setComment(e.target.value)}
-                />
-            </InputGroup>
-            <InputGroup className="mb-3">
-                <InputGroup.Text id="basic-addon1">Rate</InputGroup.Text>
-                <Form.Control
-                type="number"
-                placeholder="Rate"
-                aria-label="Rate"
-                aria-describedby="basic-addon1"
-                onChange={(e) => setRate(parseInt(e.target.value))}
-                />
-            </InputGroup>
-            <Form.Group className="d-flex mt-3 justify-content-end">
-            <Button
-                type="submit"
-                size="lg"
-                variant="dark"
-                style={{
-                marginLeft: "1em",
-                }}
-            >
-                Add Comment
-            </Button>
-            </Form.Group>
+                <Col lg="4" className="mx-auto">
+                    <InputGroup className="mb-3">
+                        <InputGroup.Text id="basic-addon1">Comment</InputGroup.Text>
+                        <Form.Control
+                        placeholder="Comment"
+                        aria-label="Comment"
+                        aria-describedby="basic-addon1"
+                        onChange={(e) => setComment(e.target.value)}
+                        />
+                    </InputGroup>
+                    <InputGroup className="mb-3">
+                        <InputGroup.Text id="basic-addon1">Rate</InputGroup.Text>
+                        <Form.Control
+                        type="number"
+                        placeholder="Rate"
+                        aria-label="Rate"
+                        aria-describedby="basic-addon1"
+                        onChange={(e) => setRate(parseInt(e.target.value))}
+                        />
+                    </InputGroup>
+                    <Form.Group className="mt-3">
+                        <Button
+                            type="submit"
+                            variant="dark"
+                        >
+                            Add Comment
+                        </Button>
+                    </Form.Group>
+                </Col>
             </Form>
         </>
   )

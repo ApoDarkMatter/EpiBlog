@@ -24,6 +24,7 @@ const Blog = () => {
     }
   }
 
+
   const navigate = useNavigate();
   useEffect(() => {
     getBlogPost()
