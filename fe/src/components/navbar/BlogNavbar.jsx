@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Button, Container, Navbar, Form, InputGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./styles.css";
-import { setSearchData, setSearchVisible } from "../../reducers/blogPost";
+import { setSearchData, setSearch } from "../../reducers/blogPost";
 import { useDispatch, useSelector } from "react-redux";
 
 
@@ -14,6 +14,10 @@ const NavBar = (props) => {
 
   const handleChange = (e) => {
     dispatch(setSearchData(e.target.value))
+  }
+
+  const search = () => {
+    dispatch(setSearch(true))
   }
 
   if(searchVisible) {
@@ -30,7 +34,7 @@ const NavBar = (props) => {
               aria-describedby="basic-addon2"
               onChange={handleChange}
             />
-            <Button variant="outline-secondary" id="button-addon2" onClick={console.log("ciao")}>
+            <Button variant="outline-secondary" id="button-addon2" onClick={search}>
               Search
             </Button>
           </InputGroup>

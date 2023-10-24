@@ -6,7 +6,8 @@ const initialState = {
     searchVisible: true,
     currentPost: {},
     currentComment: {comment: "e",rate: 0},
-    modify: false
+    modify: false,
+    search: false,
 }
 
 export const blogPost = createSlice({
@@ -30,10 +31,13 @@ export const blogPost = createSlice({
       },
       setModify: (state,action) => {
         state.modify = action.payload
+      },
+      setSearch: (state,action) => {
+        state.search = action.payload
       }
   }});
   
   // Action creators are generated for each case reducer function
-  export const { setIsLoading, setSearchData,setSearchVisible, setSearchResultData, setCurrentComment, setCurrentPost, setModify } = blogPost.actions;
+  export const { setIsLoading, setSearchData,setSearchVisible, setSearchResultData, setCurrentComment, setCurrentPost, setModify, setSearch } = blogPost.actions;
   
   export default blogPost.reducer;

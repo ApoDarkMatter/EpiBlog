@@ -37,9 +37,10 @@ blogPost.post('/blogPost/cloudUpload', cloudUpload.single('cover'), async (req, 
 
 blogPost.get('/blogPost', async (req, res) => {
     const { page = 1, pageSize = 3, title } = req.query
+    title?{title:title}:{}
     
     try {
-        const post = await blogPostModel.find()
+        const post = await blogPostModel.find(title)
             .populate('author', 'firstName lastName avatar email')
             .limit(pageSize)
             .skip((page -1) * pageSize)
