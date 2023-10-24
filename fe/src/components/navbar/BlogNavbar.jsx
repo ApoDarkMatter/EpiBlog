@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Button, Container, Navbar, Form } from "react-bootstrap";
+import { Button, Container, Navbar, Form, InputGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./styles.css";
 import { setSearchData, setSearchVisible } from "../../reducers/blogPost";
@@ -23,7 +23,17 @@ const NavBar = (props) => {
           <Navbar.Brand as={Link} to="/home">
             <img className="blog-navbar-brand" alt="logo" src="logo.svg" />
           </Navbar.Brand>
-          <Form.Control size="lg" type="text" placeholder="Search" onChange={handleChange}/>
+          <InputGroup className="mb-3 searchInput">
+            <Form.Control
+              placeholder="Search"
+              aria-label="Search"
+              aria-describedby="basic-addon2"
+              onChange={handleChange}
+            />
+            <Button variant="outline-secondary" id="button-addon2" onClick={console.log("ciao")}>
+              Search
+            </Button>
+          </InputGroup>
           <Button
             as={Link}
             to="/new"
