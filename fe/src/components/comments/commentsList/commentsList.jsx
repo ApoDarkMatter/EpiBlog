@@ -5,12 +5,14 @@ import { useParams } from 'react-router-dom'
 import {nanoid} from 'nanoid'
 import useSession from '../../../hooks/useSession'
 import BlogAuthor from '../../blog/blog-author/BlogAuthor'
-import { setIsLoading } from '../../../reducers/blogPost'
+import { setCurrentComment, setIsLoading, setModify } from '../../../reducers/blogPost'
 import { useDispatch, useSelector } from 'react-redux'
 
 const CommentsList = () => {
 
    const isLoading = useSelector((state) => state.post.isLoading)
+   const currentComment = useSelector((state) => state.post.currentComment)
+
    const dispatch = useDispatch()
 
     const {id} = useParams()
@@ -44,6 +46,12 @@ const CommentsList = () => {
         console.log(error);
       }
     }
+
+    const modifyComment = (commentId) => {
+      dispatch(setCurrentComment(commentId))
+      console.log(commentId);
+      dispatch(setModify(true))
+    }
     
   
     return (
@@ -66,6 +74,7 @@ const CommentsList = () => {
                                   {comment.comment}
                             </Card.Text>
                             <Button variant="danger" onClick={() => deleteComment(comment._id)}>Delete Comment</Button>
+                            <Button variant="warning" onClick={() => modifyComment(comment._id)}>Modify Comment</Button>
                         </Card.Body>
                       </Card>
                     </Col>
