@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from "react";
 import BlogItem from "../blog-item/BlogItem"
 import axios from "axios";
-import { Container, Row } from "react-bootstrap";
+import { Container, Row, Form, InputGroup, Button } from "react-bootstrap";
 import { nanoid } from "nanoid";
 import ResponsivePagination from 'react-responsive-pagination'
 import { useDispatch, useSelector } from "react-redux";
-import { setIsLoading, setSearch } from "../../../reducers/blogPost";
+import { setSearchData } from "../../../reducers/blogPost";
+import 'react-responsive-pagination/themes/classic.css'
 
 
 const BlogList = () => {
 
-  const search = useSelector((state) => state.post.search)
   const searchData = useSelector((state) => state.post.searchData)
-  const isLoading = useSelector((state) => state.post.isLoading)
 
   const dispatch = useDispatch()
 
@@ -21,23 +20,32 @@ const BlogList = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [posts, setPosts] = useState()
 
-  const getBlogPosts = async () => {
-    if (search) {
-      try {
-        const response = await axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/blogPost?title=${searchData}`)
-        setPosts(response.data.post)
-        dispatch(setSearch(false))
-      } catch (error) {
-        console.log(error);
-      }
+  const handleChange = (e) => {
+    dispatch(setSearchData(e.target.value))
+  }
+
+  const search = async () => {
+    if(searchData === "") {
+      getBlogPosts()
     } else {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/blogPost/`)
-        setPosts(response.data.post)
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/blogPost/byTitle?title=${searchData}`)
+        setPosts(response.data)
+        console.log(response.data);
       } catch (error) {
         console.log(error);
       }
     }
+    }
+  
+  const getBlogPosts = async () => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/blogPost?page=${currentPage}`)
+        setPosts(response.data)
+        console.log(response.data);
+      } catch (error) {
+        console.log(error);
+      }
   }
 
   const handlePagination = (value) => {
@@ -45,16 +53,28 @@ const BlogList = () => {
   }
 
   useEffect(() => {
-    getBlogPosts()
-
-  }, [currentPage]
+    if(searchData === "") {
+      getBlogPosts()
+    }
+  }, [currentPage, searchData]
   )
 
   return (
     <>
       <Container>
+          <InputGroup className="mb-3 searchInput">
+            <Form.Control
+              placeholder="Search"
+              aria-label="Search"
+              aria-describedby="basic-addon2"
+              onChange={handleChange}
+            />
+            <Button variant="outline-secondary" id="button-addon2" onClick={search}>
+              Search
+            </Button>
+          </InputGroup>
         <Row>
-          {posts && posts?.map((post) => {
+          {posts?.post && posts?.post.map((post) => {
             return (
               <BlogItem key={nanoid()} title={post.title} cover={post.cover} author={post.author} _id={post._id}/>
             )

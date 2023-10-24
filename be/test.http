@@ -63,4 +63,4 @@ Content-Type: application/json
 }
 
 ####
-GET http://localhost:5050/blogPost?title=Secondo
+GET http://localhost:5050/blogPost/byTitle?title=Secondo

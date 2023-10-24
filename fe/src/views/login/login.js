@@ -28,7 +28,7 @@ const Login = () => {
 
             if (response.data.token) {
                 localStorage.setItem('loggedInUser',JSON.stringify(response.data.token))
-                navigate('/home')
+                navigate('/')
             }
 
             setLogin(response.data)
