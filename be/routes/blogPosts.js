@@ -111,7 +111,7 @@ blogPost.post('/blogPost', async (req, res) => {
     }
 })
 
-blogPost.patch('/bloPost/:postId', async (req, res) => {
+blogPost.patch('/blogPost/:postId', async (req, res) => {
     const {postId} = req.params
 
     const postExist = await blogPostModel.findById(postId)
