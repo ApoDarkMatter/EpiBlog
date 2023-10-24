@@ -113,6 +113,8 @@ const NewBlogPost = () => {
             placeholder="Author"
             value={author}
             onChange={(e) => setAuthor(e.target.value)}
+            disabled
+            readOnly
           />
         </Form.Group>
         <Form.Group controlId="blog-form" className="mt-3">
@@ -122,6 +124,8 @@ const NewBlogPost = () => {
             placeholder="Author avatar"
             value={avatar}
             onChange={(e) => setAvatar(e.target.value)}
+            disabled
+            readOnly
           />
         </Form.Group>
         <Form.Group controlId="blog-form" className="mt-3">

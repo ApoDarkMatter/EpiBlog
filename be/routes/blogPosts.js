@@ -82,7 +82,6 @@ blogPost.get('/blogPost/:postId', async (req, res) => {
     }
 })
 
-
 blogPost.post('/blogPost', async (req, res) => {
     const newBlogPost = new blogPostModel({
         category: req.body.category,

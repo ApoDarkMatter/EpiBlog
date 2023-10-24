@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = { 
     searchData: "",
     isLoading: false,
-    searchVisible: true
+    searchVisible: true,
 }
 
 export const blogPost = createSlice({
@@ -22,6 +22,6 @@ export const blogPost = createSlice({
   }});
   
   // Action creators are generated for each case reducer function
-  export const { setIsLoading, setSearchData,setSearchVisible } = blogPost.actions;
+  export const { setIsLoading, setSearchData,setSearchVisible, setSearchResultData } = blogPost.actions;
   
   export default blogPost.reducer;
