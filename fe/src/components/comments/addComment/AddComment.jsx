@@ -4,7 +4,7 @@ import useSession from "../../../hooks/useSession";
 import { useParams } from 'react-router-dom';
 import { Button, Col, Form, InputGroup } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { setIsLoading, setModify } from '../../../reducers/blogPost';
+import { setCurrentComment, setIsLoading, setModify } from '../../../reducers/blogPost';
 
 
 const AddComment = () => {
@@ -43,12 +43,12 @@ const AddComment = () => {
 
     const modifySubmit = async (event) => {
         event.preventDefault()
-        console.log(currentComment);
 
         try {
-            const response = await axios.patch(`${process.env.REACT_APP_SERVER_BASE_URL}/blogPost/${id}`,currentComment)
+            const response = await axios.patch(`${process.env.REACT_APP_SERVER_BASE_URL}/blogPost/${currentComment.postId}/comment/${currentComment._id}`,currentComment)
             console.log("Comment modified correctly:", response.data);
             dispatch(setModify(false))
+            dispatch(setIsLoading(!isLoading))
           } catch (error) {
             console.log("Error:", error);
           }
@@ -57,8 +57,8 @@ const AddComment = () => {
     }
 
     useEffect(() => {
-      
-    }, [modify])
+
+    }, [modify, isLoading])
     
 
 
@@ -77,7 +77,7 @@ const AddComment = () => {
                             aria-label="Comment"
                             aria-describedby="basic-addon1"
                             value={currentComment.comment}
-                            onChange={(e) => setComment(e.target.value)}
+                            onChange={(e) => dispatch(setCurrentComment({comment: e.target.value}))}
                             min="1"
                             max="5"
                             />
@@ -90,7 +90,7 @@ const AddComment = () => {
                             aria-label="Rate"
                             aria-describedby="basic-addon1"
                             value={currentComment.rate}
-                            onChange={(e) => setRate(parseInt(e.target.value))}
+                            onChange={(e) => dispatch(setCurrentComment({rate: e.target.value}))}
                             />
                         </InputGroup>
                         <Form.Group className="mt-3">
@@ -119,6 +119,7 @@ const AddComment = () => {
                             placeholder="Comment"
                             aria-label="Comment"
                             aria-describedby="basic-addon1"
+                            value={comment}
                             onChange={(e) => setComment(e.target.value)}
                             />
                         </InputGroup>
@@ -129,6 +130,7 @@ const AddComment = () => {
                             placeholder="Rate"
                             aria-label="Rate"
                             aria-describedby="basic-addon1"
+                            value={rate}
                             onChange={(e) => setRate(parseInt(e.target.value))}
                             />
                         </InputGroup>

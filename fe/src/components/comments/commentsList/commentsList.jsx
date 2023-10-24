@@ -25,7 +25,7 @@ const CommentsList = () => {
       try {
         const response = await axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/blogPost/${id}/comments`)
         setComments(response.data.comments)
-        console.log(response.data.comments);
+        //console.log(response.data.comments);
       } catch (error) {
         console.log(error);
       }
@@ -37,7 +37,7 @@ const CommentsList = () => {
 
     const deleteComment = async (commentId) => {
 
-      console.log(commentId);
+      //console.log(commentId);
       try {
         await axios.delete(`${process.env.REACT_APP_SERVER_BASE_URL}/blogPost/${id}/comment/${commentId}`)
         console.log("Comment deleted succesfully");
@@ -49,6 +49,7 @@ const CommentsList = () => {
 
     const modifyComment = (comment) => {
       dispatch(setCurrentComment(comment))
+      console.log(comment);
       dispatch(setModify(true))
     }
     

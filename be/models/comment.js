@@ -9,7 +9,7 @@ const PostCommentsSchema = new mongoose.Schema({
     },
     comment: {
         type: String,
-        required: true,
+        required: true
     },
     postId: {
         type: String,
