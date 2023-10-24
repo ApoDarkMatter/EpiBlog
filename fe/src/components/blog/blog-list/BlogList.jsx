@@ -5,12 +5,14 @@ import { Container, Row } from "react-bootstrap";
 import { nanoid } from "nanoid";
 import ResponsivePagination from 'react-responsive-pagination'
 import { useDispatch, useSelector } from "react-redux";
-import { setSearch } from "../../../reducers/blogPost";
+import { setIsLoading, setSearch } from "../../../reducers/blogPost";
+
 
 const BlogList = () => {
 
   const search = useSelector((state) => state.post.search)
   const searchData = useSelector((state) => state.post.searchData)
+  const isLoading = useSelector((state) => state.post.isLoading)
 
   const dispatch = useDispatch()
 
@@ -45,8 +47,8 @@ const BlogList = () => {
   useEffect(() => {
     getBlogPosts()
 
-  }, [currentPage, search])
-  
+  }, [currentPage]
+  )
 
   return (
     <>
