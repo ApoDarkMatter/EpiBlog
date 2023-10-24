@@ -37,7 +37,7 @@ blogPost.post('/blogPost/cloudUpload', cloudUpload.single('cover'), async (req, 
 
 blogPost.get('/blogPost', async (req, res) => {
     const { page = 1, pageSize = 3, title } = req.query
-    title?query={title:title}:query={}
+    let query = title ? {title: title} : {}
     
     try {
         const post = await blogPostModel.find(query)
