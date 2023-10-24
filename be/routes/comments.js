@@ -79,5 +79,28 @@ comment.delete('/blogPost/:id/comment/:commentId', async (req, res) => {
     }
 })
 
+comment.patch('/blogPost/:id/comment/:commentId', async (req, res) => {
+    const modComment = {
+        comment: req.body.comment,
+        rate: req.body.rate,
+    }
+
+    const {id, commentId} = req.params
+
+    try {
+        const comment = await postCommentsModel.findOneAndUpdate({_id: commentId, postId: id},{comment: modComment.comment, rate: modComment.rate})
+
+        res.status(201).send({
+            statusCode: 201,
+            message: 'Comment Modified Correctly',
+            comment
+        })
+    } catch (e) {
+        res.status(500).send({
+            statusCode: 500,
+            message: 'Internal Server Error'
+        })
+    }
+})
 
 module.exports = comment

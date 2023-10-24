@@ -4,8 +4,8 @@ const initialState = {
     searchData: "",
     isLoading: false,
     searchVisible: true,
-    currentPost: "",
-    currentComment: "",
+    currentPost: {},
+    currentComment: {},
     modify: false
 }
 
@@ -26,7 +26,7 @@ export const blogPost = createSlice({
         state.currentPost = action.payload
       },
       setCurrentComment: (state,action) => {
-        state.currentPost = action.payload
+        state.currentComment = action.payload
       },
       setModify: (state,action) => {
         state.modify = action.payload

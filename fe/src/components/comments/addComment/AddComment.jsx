@@ -4,7 +4,7 @@ import useSession from "../../../hooks/useSession";
 import { useParams } from 'react-router-dom';
 import { Button, Col, Form, InputGroup } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { setIsLoading, setModify } from '../../../reducers/blogPost';
+import { setCurrentComment, setIsLoading, setModify } from '../../../reducers/blogPost';
 
 
 const AddComment = () => {
@@ -42,9 +42,21 @@ const AddComment = () => {
     }
 
     const modifySubmit = async (event) => {
+        dispatch(setCurrentComment({comment: comment, rate: rate}))
+        console.log(currentComment);
+
         event.preventDefault()
         console.log(currentComment);
-        dispatch(setModify(false))
+
+        try {
+            const response = await axios.patch(`${process.env.REACT_APP_SERVER_BASE_URL}/blogPost/${id}`,currentComment)
+            console.log("Comment modified correctly:", response.data);
+            dispatch(setModify(false))
+          } catch (error) {
+            console.log("Error:", error);
+          }
+
+        
     }
 
     useEffect(() => {
@@ -67,7 +79,10 @@ const AddComment = () => {
                             placeholder="Comment"
                             aria-label="Comment"
                             aria-describedby="basic-addon1"
+                            value={comment}
                             onChange={(e) => setComment(e.target.value)}
+                            min="1"
+                            max="5"
                             />
                         </InputGroup>
                         <InputGroup className="mb-3">
@@ -77,6 +92,7 @@ const AddComment = () => {
                             placeholder="Rate"
                             aria-label="Rate"
                             aria-describedby="basic-addon1"
+                            value={rate}
                             onChange={(e) => setRate(parseInt(e.target.value))}
                             />
                         </InputGroup>

@@ -47,9 +47,8 @@ const CommentsList = () => {
       }
     }
 
-    const modifyComment = (commentId) => {
-      dispatch(setCurrentComment(commentId))
-      console.log(commentId);
+    const modifyComment = (comment) => {
+      dispatch(setCurrentComment(comment))
       dispatch(setModify(true))
     }
     
@@ -74,7 +73,7 @@ const CommentsList = () => {
                                   {comment.comment}
                             </Card.Text>
                             <Button variant="danger" onClick={() => deleteComment(comment._id)}>Delete Comment</Button>
-                            <Button variant="warning" onClick={() => modifyComment(comment._id)}>Modify Comment</Button>
+                            <Button variant="warning" onClick={() => modifyComment(comment)}>Modify Comment</Button>
                         </Card.Body>
                       </Card>
                     </Col>
