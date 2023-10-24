@@ -52,3 +52,12 @@ GET http://localhost:5050/blogPost/653392fb39c8a39e62e29c6e/comments
 
 ####
 DELETE http://localhost:5050/blogPost/comment/6535340e749ed568473bb654
+
+####
+POST http://localhost:5050/send-email
+Content-Type: application/json
+
+{
+    "subject": "TestMail",
+    "text": "MailTest"
+}
