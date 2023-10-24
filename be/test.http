@@ -61,3 +61,6 @@ Content-Type: application/json
     "subject": "TestMail",
     "text": "MailTest"
 }
+
+####
+GET http://localhost:5050/blogPost?title=Primo

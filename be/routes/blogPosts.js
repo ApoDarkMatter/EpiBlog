@@ -45,7 +45,7 @@ blogPost.get('/blogPost', async (req, res) => {
             .limit(pageSize)
             .skip((page -1) * pageSize)
 
-        const totalPosts = await  blogPostModel.count()
+        const totalPosts = await blogPostModel.count()
 
         res.status(200).send({
             statusCode: 200,
